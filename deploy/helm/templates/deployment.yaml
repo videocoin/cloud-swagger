@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    app: {{ .Chart.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicasCount }}
+  strategy:
+    rollingUpdate:
+      maxUnavailable: {{ .Values.maxUnavailableCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.internalPort }}
+          env:
+            - name: SENTRY_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Chart.Name }}
+                  key: sentryDsn
+      volumes:
+        - name: {{ .Chart.Name }}
+          configMap:
+            name: {{ .Release.Name }}
+        - name: secrets
+          secret:
+            secretName: {{ .Release.Name }}
+      nodeSelector:
+        cloud.google.com/gke-nodepool: api

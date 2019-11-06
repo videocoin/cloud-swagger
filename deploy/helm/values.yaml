@@ -1,0 +1,19 @@
+replicasCount: 1
+maxUnavailableCount: 0
+
+image:
+  repository: gcr.io/videocoin-network/swagger
+  tag: latest
+  pullPolicy: Always
+
+config: {}
+
+service:
+  name: http
+  type: NodePort
+  externalPort: 8080
+  internalPort: 8080
+
+
+secrets:
+  sentryDsn: ""
