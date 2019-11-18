@@ -6,6 +6,8 @@ GCP_PROJECT=videocoin-network
 NAME=swagger
 VERSION=$$(git rev-parse --abbrev-ref HEAD)-$$(git rev-parse --short HEAD)
 
+ENV?=snb
+
 .PHONY: deploy
 
 default: build

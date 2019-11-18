@@ -14,10 +14,11 @@ type Page struct {
 func main() {
 
 	var urls = map[string]string{
-		"swagger/streams": "/swagger/openapi/streams/v1/streams_service.swagger.json",
-		"swagger/users": "/swagger/openapi/users/v1/user_service.swagger.json",
+		"swagger/streams":  "/swagger/openapi/streams/v1/streams_service.swagger.json",
+		"swagger/users":    "/swagger/openapi/users/v1/user_service.swagger.json",
 		"swagger/accounts": "/swagger/openapi/accounts/v1/account_service.swagger.json",
 		"swagger/profiles": "/swagger/openapi/profiles/v1/profiles_service.swagger.json",
+		"swagger/miners":   "/swagger/openapi/miners/v1/miner_service.swagger.json",
 	}
 
 	http.HandleFunc("/swagger", func(w http.ResponseWriter, r *http.Request) {
